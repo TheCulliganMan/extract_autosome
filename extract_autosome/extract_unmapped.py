@@ -4,7 +4,8 @@ import os
 import subprocess as sp
 from Bio import SeqIO
 
-def unmask_autosome(masked_output_fasta, unmasked_query_fasta, unmasked_output_fasta):
+def unmask_autosome(masked_output_fasta, unmasked_query_fasta,
+                    unmasked_output_fasta):
     record_set = set()
     all_count = 0
     with open(masked_output_fasta, "rU") as input_handle:
@@ -25,9 +26,20 @@ def unmask_autosome(masked_output_fasta, unmasked_query_fasta, unmasked_output_f
 
 def main():
     import argparse
-    masked_output_fasta = "y_x_extracted_allpaths.fa"
-    unmasked_query_fasta = "final.contigs.fasta"
-    unmasked_output_fasta = "y_x_extracted.final.contigs.fasta"
+    parser = argparse.ArgumentParser(
+        description='Takes an unmasked fasta and a masked fasta selection and \
+        builds an unmasked fasta selection.'
+    )
+    parser.add_argument('-masked_output_fasta', type=str, required=True)
+    parser.add_argument('-unmasked_query_fasta', type=str, required=True)
+    parser.add_argument('-unmasked_output_fasta', type=str, required=True)
+    parser.parse_args()
+
+    unmask_autosome(
+        args.masked_output_fasta,
+        args.unmasked_query_fasta,
+        args.unmasked_output_fasta
+    )
 
 if __name__ == "__main__":
     main()
