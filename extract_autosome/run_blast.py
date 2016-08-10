@@ -28,13 +28,13 @@ def run_blast(blast_directory, db_name,
         )
     """
     if overwrite:
-        if not os.path.isdir(hits_directory):
+        if os.path.isdir(hits_directory):
             os.removedirs(hits_directory)
-        os.makedirs(hits_directory)
     else:
-        assert os.path.isdir(hits_directory), \
-            "You cannot overwrite {} file.".format(hits_directory)
-
+        if os.path.isdir(hits_directory)
+            assert os.path.isdir(hits_directory), \
+                "You cannot overwrite {} file.".format(hits_directory)
+    os.makedirs(hits_directory)
 
     blast_fastas = [("{}/{}".format(blast_directory, i), i) \
                     for i in os.listdir(blast_directory)]

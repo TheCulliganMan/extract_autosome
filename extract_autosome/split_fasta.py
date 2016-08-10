@@ -24,12 +24,13 @@ def split_fasta(masked_input_fasta, output_base_name,
         )
     """
     count = 0
-
-    if not os.path.isdir(fasta_output_directory):
-        os.removedirs(fasta_output_directory)
-    os.makedira(fasta_output_directory)
-    assert os.path.isdir(fasta_output_directory), \
-        "You cannot overwrite {} file.".format(fasta_output_directory)
+    if overwrite:
+        if os.path.isdir(fasta_output_directory):
+            os.removedirs(fasta_output_directory)
+    else:
+        assert os.path.isdir(fasta_output_directory), \
+            "You cannot overwrite {} file.".format(fasta_output_directory)
+    os.makedirs(fasta_output_directory)
 
     with open(masked_input_fasta, "rU") as input_handle:
         records = []
