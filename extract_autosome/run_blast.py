@@ -3,6 +3,7 @@
 from multiprocessing import Pool
 import os
 import subprocess as sp
+from os.path import basename
 
 def run_blast(blast_directory, db_name, hits_directory, cores=1):
     """Runs blast on all fastas in a specified directory against a specified \
@@ -32,7 +33,8 @@ def run_blast(blast_directory, db_name, hits_directory, cores=1):
     blast_commands = []
 
     for fasta, name in blast_fastas:
-        output_name = "{}/{}_{}.hits".format(hits_directory, name, db_name)
+        db_base_name = basename(db_name)
+        output_name = "{}/{}_{}.hits".format(hits_directory, name, db_base_name)
         blast_command = ["blastn", "-db", db_name, "-query", fasta, "-out",
                          output_name, "-outfmt", "10", '-evalue', "5"]
         blast_commands.append(blast_command)
