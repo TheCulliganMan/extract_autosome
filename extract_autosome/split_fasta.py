@@ -67,12 +67,20 @@ def main():
         required=True,
         help="Directory to output split fastas."
     )
+    parser.add_argument(
+        '-overwrite',
+        type=bool,
+        default=True,
+        help='Overwrite directories (default True).'
+    )
+
     parser.parse_args()
 
     split_fasta(
         args.masked_input_fasta,
         args.output_base_name,
-        args.fasta_output_directory
+        args.fasta_output_directory,
+        overwrite=args.overwrite
     )
 
 if __name__ == "__main__":

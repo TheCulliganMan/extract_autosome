@@ -15,6 +15,7 @@ def run_blast(blast_directory, db_name,
         db_name (str): The location / name of a blast database.
         hits_directory (str): An output directory to store blast output.
         cores (int): Number of cores to run the program on.
+        overwrite (bool): Overwrite directories (default True)
 
     Returns:
         None
@@ -31,9 +32,8 @@ def run_blast(blast_directory, db_name,
         if os.path.isdir(hits_directory):
             os.removedirs(hits_directory)
     else:
-        if os.path.isdir(hits_directory)
-            assert os.path.isdir(hits_directory), \
-                "You cannot overwrite {} file.".format(hits_directory)
+        assert os.path.isdir(hits_directory), \
+            "You cannot overwrite {} file.".format(hits_directory)
     os.makedirs(hits_directory)
 
     blast_fastas = [("{}/{}".format(blast_directory, i), i) \
@@ -84,13 +84,20 @@ def main():
         default=1,
         help='Number of cores to run the program on.'
     )
+    parser.add_argument(
+        '-overwrite',
+        type=bool,
+        default=True,
+        help='Overwrite directories (default True).'
+    )
     args = parser.parse_args()
 
     run_blast(
         args.blast_directory,
         args.db_name,
         args.hits_directory,
-        cores=args.cores
+        cores=args.cores,
+        overwrite=args.overwrite
     )
 
 if __name__ == '__main__':
