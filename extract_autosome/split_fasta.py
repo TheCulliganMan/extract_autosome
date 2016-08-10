@@ -4,6 +4,23 @@ import os
 from Bio import SeqIO
 
 def split_fasta(masked_input_fasta, output_base_name, fasta_output_directory):
+    """Takes in a fasta and splits it every 2000 records.
+
+    Args:
+        masked_input_fasta (str): Masked genomic sequence (fasta).
+        output_base_name (str): Split fastas will be renamed to this base.
+        fasta_output_directory (str): Directory to output split fastas.
+
+    Returns:
+        None
+
+    Examples:
+        split_fasta(
+            "/path/to/masked_input_fasta.fa",
+            "kian_8.4_split_2000",
+            "/output/path/split_fasta_out"
+        )
+    """
     count = 0
     with open(masked_input_fasta, "rU") as input_handle:
         records = []

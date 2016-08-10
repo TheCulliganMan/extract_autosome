@@ -4,9 +4,30 @@ from multiprocessing import Pool
 import os
 import subprocess as sp
 
-def run_blast(blast_folder, db_name, hits_directory, cores=1):
-    blast_fastas = [("{}/{}".format(blast_folder, i), i) \
-                    for i in os.listdir(blast_folder)]
+def run_blast(blast_directory, db_name, hits_directory, cores=1):
+    """Runs blast on all fastas in a specified directory against a specified \
+    blast database.  Collects results in a 'hits' directory.
+
+    Args:
+        blast_directory (str): A directory of fasta file to run blast on.
+        db_name (str): The location / name of a blast database.
+        hits_directory (str): An output directory to store blast output.
+        cores (int): Number of cores to run the program on.
+
+    Returns:
+        None
+
+    Examples:
+        run_blast(
+            "/path/to/fasta_directory",
+            "xchr",
+            "/path/to/hits_output_directory",
+            6
+        )
+    """
+
+    blast_fastas = [("{}/{}".format(blast_directory, i), i) \
+                    for i in os.listdir(blast_directory)]
 
     blast_commands = []
 
@@ -28,14 +49,34 @@ def main():
         description='Runs Blast on all items in a directory.'
     )
 
-    parser.add_argument('-blast_folder', type=str, required=True)
-    parser.add_argument('-db_name', type=str, required=True)
-    parser.add_argument('-hits_directory', type=str, required=True)
-    parser.add_argument('-cores', type=int, default=1)
+    parser.add_argument(
+        '-blast_directory',
+        type=str,
+        required=True,
+        help='A directory of fasta file to run blast on.'
+    )
+    parser.add_argument(
+        '-db_name',
+        type=str,
+        required=True,
+        help='The location / name of a blast database.'
+    )
+    parser.add_argument(
+        '-hits_directory',
+        type=str,
+        required=True,
+        help='An output directory to store blast output.'
+    )
+    parser.add_argument(
+        '-cores',
+        type=int,
+        default=1,
+        help='Number of cores to run the program on.'
+    )
     args = parser.parse_args()
 
     run_blast(
-        args.blast_folder,
+        args.blast_directory,
         args.db_name,
         args.hits_directory,
         cores=args.cores

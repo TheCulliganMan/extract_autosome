@@ -5,6 +5,27 @@ import subprocess as sp
 from Bio import SeqIO
 
 def gather_hits(masked_input_fasta, masked_output_fasta, hits_folder):
+    """Gathers hits from all hits files in a directory and uses their ids to \
+    collect corresponding fastas from a reference fasta.  Merges non-hit \
+    sequences into a new fasta file.
+
+    Args:
+        masked_input_fasta (str): A fasta to collect hit fastas from.
+        masked_output_fasta (str): A fasta made of fasta hits \
+        from the masked_input_fasta.
+        hits_folder (str): A folder of hits files.
+
+    Returns:
+        None
+
+    Examples:
+        gather_hits(
+            "/path/to/masked_fasta.fa",
+            "/path/to/newly_made/x_rm_masked.fa",
+            "/path/to/hits_output_directory"
+        )
+    """
+
     records = []
     count = 0
     hits_files = ["{}/{}".format(hits_folder, i) \
@@ -29,9 +50,24 @@ def gather_hits(masked_input_fasta, masked_output_fasta, hits_folder):
 def main():
     import argparse
     parser = argparse.ArgumentParser(description='Gathers hits from blast.')
-    parser.add_argument('-masked_input_fasta', type=str, required=True)
-    parser.add_argument('-masked_output_fasta', type=str, required=True)
-    parser.add_argument('-hits_folder', type=str, required=True)
+    parser.add_argument(
+        '-masked_input_fasta',
+        type=str,
+        required=True,
+        help='A fasta to collect hit fastas from.'
+    )
+    parser.add_argument(
+        '-masked_output_fasta',
+        type=str,
+        required=True,
+        help='A fasta made of fasta hits from the masked_input_fasta.'
+    )
+    parser.add_argument(
+        '-hits_folder',
+        type=str,
+        required=True,
+        help='A folder of hits files.'
+    )
     args = parser.parse_args()
 
     gather_hits(

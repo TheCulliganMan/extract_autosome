@@ -6,6 +6,24 @@ from Bio import SeqIO
 
 def unmask_autosome(masked_output_fasta, unmasked_query_fasta,
                     unmasked_output_fasta):
+    """Takes a masked fasta and corresponding unmasked fasta and finds their \
+    intersection to output to a new unmasked fasta.
+
+    Args:
+        masked_output_fasta (str): Output fasta from gather_hits.
+        unmasked_query_fasta (str): Orignal fasta from genomic assembly.
+        unmasked_output_fasta (str): Unmasked fasta file to be output.
+
+    Returns:
+        None
+
+    Examples:
+        unmask_autosome(
+            "/path/to/masked_output_fasta.fa",
+            "/path/to/unmasked_fasta.fa",
+            "/output/path/to/new/unmasked_output-fasta.fa"
+        )
+    """
     record_set = set()
     all_count = 0
     with open(masked_output_fasta, "rU") as input_handle:
@@ -30,9 +48,24 @@ def main():
         description='Takes an unmasked fasta and a masked fasta selection and \
         builds an unmasked fasta selection.'
     )
-    parser.add_argument('-masked_output_fasta', type=str, required=True)
-    parser.add_argument('-unmasked_query_fasta', type=str, required=True)
-    parser.add_argument('-unmasked_output_fasta', type=str, required=True)
+    parser.add_argument(
+        '-masked_output_fasta',
+        type=str,
+        required=True,
+        help='Output fasta from gather_hits.'
+    )
+    parser.add_argument(
+        '-unmasked_query_fasta',
+        type=str,
+        required=True,
+        help='Orignal fasta from genomic assembly.'
+    )
+    parser.add_argument(
+        '-unmasked_output_fasta',
+        type=str,
+        required=True,
+        help='Unmasked fasta file to be output.'
+    )
     parser.parse_args()
 
     unmask_autosome(
