@@ -4,7 +4,7 @@ import os
 import subprocess as sp
 from Bio import SeqIO
 
-def extract_unmapped(masked_file, unmasked_file, output_name)
+def extract_unmapped(masked_file, unmasked_file, output_name):
     record_set = set()
     all_count = 0
     with open(masked_file, "rU") as input_handle:
