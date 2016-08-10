@@ -4,18 +4,18 @@ import os
 import subprocess as sp
 from Bio import SeqIO
 
-def extract_unmapped(masked_file, unmasked_file, output_name):
+def unmask_autosome(unmasked_output_fasta, unmasked_query_fasta, unmasked_output_fasta):
     record_set = set()
     all_count = 0
-    with open(masked_file, "rU") as input_handle:
+    with open(unmasked_output_fasta, "rU") as input_handle:
         records = []
         for record in SeqIO.parse(input_handle, "fasta"):
             record_set.add(record.id)
 
     print (len(record_set), "Contigs in X-Y Selection.")
 
-    with open(unmasked_file, "rU") as input_handle:
-        with open(output_name, "w+") as output_handle:
+    with open(unmasked_query_fasta, "rU") as input_handle:
+        with open(unmasked_output_fasta, "w+") as output_handle:
             for record in SeqIO.parse(input_handle, "fasta"):
                 all_count += 1
                 if record.id in record_set:
@@ -25,9 +25,9 @@ def extract_unmapped(masked_file, unmasked_file, output_name):
 
 def main():
     import argparse
-    masked_file = "y_x_extracted_allpaths.fa"
-    unmasked_file = "final.contigs.fasta"
-    output_name = "y_x_extracted.final.contigs.fasta"
+    unmasked_output_fasta = "y_x_extracted_allpaths.fa"
+    unmasked_query_fasta = "final.contigs.fasta"
+    unmasked_output_fasta = "y_x_extracted.final.contigs.fasta"
 
 if __name__ == "__main__":
     main()
