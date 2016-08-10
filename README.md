@@ -11,13 +11,14 @@ fasta files.  Repeat masking is recommended before running this pipeline.
   1. Install ncbi-blast+, RepeatMasker, and biopython.
   2. Download a reference fasta that you would like to remove from your
   sequence. We used the [Human X Chromosome](ftp://ftp.ncbi.nlm.nih.gov/genomes//H_sapiens/CHR_X/hs_alt_CHM1_1.1_chrX.fa.gz):
-  
+
   ftp://ftp.ncbi.nlm.nih.gov/genomes//H_sapiens/CHR_X/hs_alt_CHM1_1.1_chrX.fa.gz
 
   3. Make a blast database for your reference sequence.
 
   ```bash
-  makeblastdb -in hs_alt_CHM1_1.1_chrX.fa.gz -dbtype nucl
+  gunzip hs_alt_CHM1_1.1_chrX.fa.gz;
+  makeblastdb -in hs_alt_CHM1_1.1_chrX.fa.gz -dbtype nucl;
   ```
 
   4. Run the extract autosome commands on your genomic sequence and the blast db.
@@ -40,5 +41,5 @@ fasta files.  Repeat masking is recommended before running this pipeline.
     "x.removed.final.contigs.fasta"
   )
   ```
-The command above will remove x.fa sequence matches from the
-final.contigs.fasta file and output to x.removed.final.contigs.fasta
+The command above will remove hs_alt_CHM1_1.1_chrX.fa sequence matches from the
+final.contigs.fasta file and output to x.removed.final.contigs.fasta.
