@@ -4,10 +4,10 @@ import os
 import subprocess as sp
 from Bio import SeqIO
 
-def unmask_autosome(unmasked_output_fasta, unmasked_query_fasta, unmasked_output_fasta):
+def unmask_autosome(masked_output_fasta, unmasked_query_fasta, unmasked_output_fasta):
     record_set = set()
     all_count = 0
-    with open(unmasked_output_fasta, "rU") as input_handle:
+    with open(masked_output_fasta, "rU") as input_handle:
         records = []
         for record in SeqIO.parse(input_handle, "fasta"):
             record_set.add(record.id)
@@ -25,7 +25,7 @@ def unmask_autosome(unmasked_output_fasta, unmasked_query_fasta, unmasked_output
 
 def main():
     import argparse
-    unmasked_output_fasta = "y_x_extracted_allpaths.fa"
+    masked_output_fasta = "y_x_extracted_allpaths.fa"
     unmasked_query_fasta = "final.contigs.fasta"
     unmasked_output_fasta = "y_x_extracted.final.contigs.fasta"
 

@@ -3,9 +3,9 @@
 import os
 from Bio import SeqIO
 
-def split_fasta(file_name, output_base, output_directory):
+def split_fasta(query_fasta, output_base, output_directory):
     count = 0
-    with open(file_name, "rU") as input_handle:
+    with open(query_fasta, "rU") as input_handle:
         records = []
         for num, record in enumerate(SeqIO.parse(input_handle, "fasta")):
             records.append(record)
@@ -18,10 +18,10 @@ def split_fasta(file_name, output_base, output_directory):
 
 def main():
     import argparse
-    file_name = "x_extracted_allpaths.fa"
+    query_fasta = "x_extracted_allpaths.fa"
     output_base = "x_kian8.4genomen_split"
     output_directory = "/split_fasta"
-    split_fasta(file_name, output_base, output_directory)
+    split_fasta(query_fasta, output_base, output_directory)
 
 if __name__ == "__main__":
     main()
