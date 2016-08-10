@@ -5,7 +5,8 @@ import os
 import subprocess as sp
 from os.path import basename
 
-def run_blast(blast_directory, db_name, hits_directory, cores=1):
+def run_blast(blast_directory, db_name,
+              hits_directory, cores=1, overwrite=True):
     """Runs blast on all fastas in a specified directory against a specified \
     blast database.  Collects results in a 'hits' directory.
 
@@ -26,6 +27,14 @@ def run_blast(blast_directory, db_name, hits_directory, cores=1):
             6
         )
     """
+    if overwrite:
+        if not os.path.isdir(hits_directory):
+            os.removedirs(hits_directory)
+        os.makedirs(hits_directory)
+    else:
+        assert os.path.isdir(hits_directory), \
+            "You cannot overwrite {} file.".format(hits_directory)
+
 
     blast_fastas = [("{}/{}".format(blast_directory, i), i) \
                     for i in os.listdir(blast_directory)]

@@ -3,13 +3,15 @@
 import os
 from Bio import SeqIO
 
-def split_fasta(masked_input_fasta, output_base_name, fasta_output_directory):
+def split_fasta(masked_input_fasta, output_base_name,
+                fasta_output_directory, overwrite=True):
     """Takes in a fasta and splits it every 2000 records.
 
     Args:
         masked_input_fasta (str): Masked genomic sequence (fasta).
         output_base_name (str): Split fastas will be renamed to this base.
         fasta_output_directory (str): Directory to output split fastas.
+        overwrite (bool): Overwrite directories (default True)
 
     Returns:
         None
@@ -22,6 +24,13 @@ def split_fasta(masked_input_fasta, output_base_name, fasta_output_directory):
         )
     """
     count = 0
+
+    if not os.path.isdir(fasta_output_directory):
+        os.removedirs(fasta_output_directory)
+    os.makedira(fasta_output_directory)
+    assert os.path.isdir(fasta_output_directory), \
+        "You cannot overwrite {} file.".format(fasta_output_directory)
+
     with open(masked_input_fasta, "rU") as input_handle:
         records = []
         for num, record in enumerate(SeqIO.parse(input_handle, "fasta")):
@@ -39,9 +48,24 @@ def main():
     parser = argparse.ArgumentParser(
         description='Splits a fasta sequence into 2000 contig chunks'
     )
-    parser.add_argument('-masked_input_fasta', type=str, required=True)
-    parser.add_argument('-output_base_name', type=str, required=True)
-    parser.add_argument('-fasta_output_directory', type=str, required=True)
+    parser.add_argument(
+        '-masked_input_fasta',
+        type=str,
+        required=True,
+        help="Masked genomic sequence (fasta)"
+    )
+    parser.add_argument(
+        '-output_base_name',
+        type=str,
+        required=True,
+        help="Split fastas will be renamed to this base."
+    )
+    parser.add_argument(
+        '-fasta_output_directory',
+        type=str,
+        required=True,
+        help="Directory to output split fastas."
+    )
     parser.parse_args()
 
     split_fasta(
