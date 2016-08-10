@@ -2,6 +2,7 @@
 
 from multiprocessing import Pool
 import os
+import shutil
 import subprocess as sp
 from os.path import basename
 
@@ -30,7 +31,7 @@ def run_blast(blast_directory, db_name,
     """
     if overwrite:
         if os.path.isdir(hits_directory):
-            os.removedirs(hits_directory)
+            shutil.rmtree(hits_directory)
     else:
         assert os.path.isdir(hits_directory), \
             "You cannot overwrite {} file.".format(hits_directory)
