@@ -18,6 +18,14 @@ extract_autosome.extract_autosome(
   "../blast_x_vs_mick/x",
   "hits",
   "x_removed.final.contigs.masked.fasta",
+  cores=32
 )
 
+extract_autosome.unmask_autosome(
+  "x_removed.final.contigs.masked.fasta",
+  "../blast_x_vs_mick/final.contigs.fasta",
+  "x.removed.final.contigs.fasta"
+)
 ```
+The command above will remove x.fa sequence matches from the
+final.contigs.fasta file and output to x.removed.final.contigs.fasta
