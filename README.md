@@ -21,7 +21,8 @@ fasta files.  Repeat masking is recommended before running this pipeline.
   makeblastdb -in hs_alt_CHM1_1.1_chrX.fa.gz -dbtype nucl;
   ```
 
-  4. Run the extract autosome commands on your genomic sequence and the blast db.
+  4. In Python, run the extract autosome commands on your genomic sequence
+  and the blast db.
   ```python
   import extract_autosome
 
