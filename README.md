@@ -45,6 +45,7 @@ fasta files.  Repeat masking is recommended before running this pipeline.
 The command above will remove hs_alt_CHM1_1.1_chrX.fa sequence matches from the
 final.contigs.fasta file and output to x.removed.final.contigs.fasta.
 
+## Comand Line
 There are also the option to run extractions from the command prompt. The
 arguments are listed below.
 
