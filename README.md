@@ -23,6 +23,9 @@ fasta files.  Repeat masking is recommended before running this pipeline.
 
   4. In Python, run the extract autosome commands on your genomic sequence
   and the blast db.
+
+  The command below will remove hs_alt_CHM1_1.1_chrX.fa sequence matches from the
+  final.contigs.fasta file and output to x.removed.final.contigs.fasta.
   ```python
   import extract_autosome
 
@@ -42,8 +45,7 @@ fasta files.  Repeat masking is recommended before running this pipeline.
     "x.removed.final.contigs.fasta"
   )
   ```
-The command above will remove hs_alt_CHM1_1.1_chrX.fa sequence matches from the
-final.contigs.fasta file and output to x.removed.final.contigs.fasta.
+
 
 ## Comand Line
 There are also the option to run extractions from the command prompt. The
