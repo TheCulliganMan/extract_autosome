@@ -66,7 +66,7 @@ def main():
         required=True,
         help='Unmasked fasta file to be output.'
     )
-    parser.parse_args()
+    args = parser.parse_args()
 
     unmask_autosome(
         args.masked_output_fasta,

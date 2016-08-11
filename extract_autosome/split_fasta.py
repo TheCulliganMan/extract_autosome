@@ -75,7 +75,7 @@ def main():
         help='Overwrite directories (default True).'
     )
 
-    parser.parse_args()
+    args = parser.parse_args()
 
     split_fasta(
         args.masked_input_fasta,
