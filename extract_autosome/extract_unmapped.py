@@ -5,7 +5,7 @@ import subprocess as sp
 from Bio import SeqIO
 
 def unmask_autosome(masked_output_fasta, unmasked_query_fasta,
-                    unmasked_output_fasta):
+                    unmasked_output_fasta, allosome):
     """Takes a masked fasta and corresponding unmasked fasta and finds their \
     intersection to output to a new unmasked fasta.
 
@@ -37,8 +37,12 @@ def unmask_autosome(masked_output_fasta, unmasked_query_fasta,
         with open(unmasked_output_fasta, "w+") as output_handle:
             for record in SeqIO.parse(input_handle, "fasta"):
                 all_count += 1
-                if record.id in record_set:
-                    SeqIO.write(record, output_handle, "fasta")
+                if allosome:
+                    if record.id not in record_set:
+                        SeqIO.write(record, output_handle, "fasta")
+                else:
+                    if record.id in record_set:
+                        SeqIO.write(record, output_handle, "fasta")
 
     print (all_count, "Contigs Total.")
 
@@ -66,12 +70,18 @@ def main():
         required=True,
         help='Unmasked fasta file to be output.'
     )
+    parser.add_argument(
+        '-allosome',
+        action='store_true'
+    )
+
     args = parser.parse_args()
 
     unmask_autosome(
         args.masked_output_fasta,
         args.unmasked_query_fasta,
-        args.unmasked_output_fasta
+        args.unmasked_output_fasta,
+        args.allosome
     )
 
 if __name__ == "__main__":

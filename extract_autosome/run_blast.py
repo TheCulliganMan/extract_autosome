@@ -37,14 +37,17 @@ def run_blast(blast_directory, db_name,
             "You cannot overwrite {} file.".format(hits_directory)
     os.makedirs(hits_directory)
 
-    blast_fastas = [("{}/{}".format(blast_directory, i), i) \
+    blast_fastas = [(os.path.join(blast_directory, i), i) \
                     for i in os.listdir(blast_directory)]
 
     blast_commands = []
 
     for fasta, name in blast_fastas:
         db_base_name = basename(db_name)
-        output_name = "{}/{}_{}.hits".format(hits_directory, name, db_base_name)
+        output_name = os.path.join(
+                        hits_directory,
+                        "{}_{}.hits".format(name, db_base_name)
+                    )
         blast_command = ["blastn", "-db", db_name, "-query", fasta, "-out",
                          output_name, "-outfmt", "10", '-evalue', "5"]
         blast_commands.append(blast_command)

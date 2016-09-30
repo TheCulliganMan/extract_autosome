@@ -28,7 +28,7 @@ def gather_hits(masked_input_fasta, masked_output_fasta, hits_folder):
 
     records = []
     count = 0
-    hits_files = ["{}/{}".format(hits_folder, i) \
+    hits_files = [os.path.join(hits_folder, i) \
                   for i in os.listdir(hits_folder)]
     hits_set = set()
     for hits_file in hits_files:
@@ -68,6 +68,7 @@ def main():
         required=True,
         help='A folder of hits files.'
     )
+
     args = parser.parse_args()
 
     gather_hits(

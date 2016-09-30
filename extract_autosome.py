@@ -87,6 +87,11 @@ def main():
         required=True,
         help='Number of cores on which to run.'
     )
+    parser.add_argument(
+        '-allosome',
+        action='store_true'
+    )
+
 
     args = parser.parse_args()
 
@@ -108,7 +113,8 @@ def main():
     ea.unmask_autosome(
         args.masked_output_fasta,
         args.unmasked_genomic_fasta,
-        args.unmasked_output_fasta
+        args.unmasked_output_fasta,
+        args.allosome
     )
 
 if __name__ == "__main__":
