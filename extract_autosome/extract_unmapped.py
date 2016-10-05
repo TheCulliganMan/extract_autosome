@@ -5,7 +5,7 @@ import subprocess as sp
 from Bio import SeqIO
 
 def unmask_autosome(masked_output_fasta, unmasked_query_fasta,
-                    unmasked_output_fasta, allosome):
+                    unmasked_output_fasta, allosome=False):
     """Takes a masked fasta and corresponding unmasked fasta and finds their \
     intersection to output to a new unmasked fasta.
 
